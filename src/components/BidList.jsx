@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useBidContext } from '../hooks/useBidContext';
 import { useEffect, useState } from 'react';
+import imgNotFound from '../assets/images/Image_not_available.png';
 
 const BidList = () => {
   const { bid } = useBidContext();
@@ -24,26 +25,36 @@ const BidList = () => {
       <button onClick={() => navigate(-1)} className="inline-block">
         Go Back
       </button>
-      {bidItems &&
-        bidItems.map((item) => (
-          <div
-            key={item.vehicle.id}
-            className="inline-block text-white m-4 border-2 p-4"
-          >
-            <img src={item.vehicle.details.image} alt="vehicle" width={300} />
-            <h2>
-              {item.vehicle.details.brand +
-                ' ' +
-                item.vehicle.name +
-                ' - ' +
-                item.vehicle.details.manufactureYear}
-            </h2>
-            <p>Bid amount : {item.bidAmount} lkr</p>
-          </div>
-        ))}
-      <hr />
-      <h1 className="text-2xl text-right">Total : {total} lkr</h1>
-      <hr />
+      <div>
+        {bidItems &&
+          bidItems.map((item, index) => (
+            <div
+              key={index}
+              className="inline-block text-white m-4 border-2 p-4"
+            >
+              <img
+                src={
+                  item.vehicle.details.image
+                    ? item.vehicle.details.image
+                    : imgNotFound
+                }
+                alt="vehicle"
+                width={300}
+              />
+              <h2>
+                {item.vehicle.details.brand +
+                  ' ' +
+                  item.vehicle.name +
+                  ' - ' +
+                  item.vehicle.details.manufactureYear}
+              </h2>
+              <p>Bid amount : {item.bidAmount} lkr</p>
+            </div>
+          ))}
+        <hr />
+        <h1 className="text-2xl text-right">Total : {total} lkr</h1>
+        <hr />
+      </div>
     </div>
   );
 };

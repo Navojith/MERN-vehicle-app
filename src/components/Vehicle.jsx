@@ -105,6 +105,14 @@ const Vehicle = ({ vehicle, isDetailsPage }) => {
       ) : (
         item && (
           <div className="flex flex-wrap">
+            <div className="mt-12">
+              <button
+                onClick={() => navigate(-1)}
+                className="border-2 px-2 inline-block"
+              >
+                Go Back
+              </button>
+            </div>
             <ToastContainer />
             <img
               src={item.details.image ? item.details.image : imgNotFound}
