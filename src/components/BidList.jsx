@@ -21,8 +21,11 @@ const BidList = () => {
     <>
       {bidItems &&
         bidItems.map((item) => (
-          <div key={item.vehicle.id} className="text-white m-4">
-            <img src={item.vehicle.details.image} />
+          <div
+            key={item.vehicle.id}
+            className="text-white m-4 border-2 p-4 inline-block"
+          >
+            <img src={item.vehicle.details.image} alt="vehicle" width={300} />
             <h2>
               {item.vehicle.details.brand +
                 ' ' +
@@ -30,10 +33,10 @@ const BidList = () => {
                 ' - ' +
                 item.vehicle.details.manufactureYear}
             </h2>
-            <p></p>
+            <p>Bid amount : {item.bidAmount} lkr</p>
           </div>
         ))}
-      <h1>Total : {total} lkr</h1>
+      <h1 className="text-2xl text-right mt-4">Total : {total} lkr</h1>
     </>
   );
 };
