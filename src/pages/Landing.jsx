@@ -5,6 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const Landing = () => {
   const [data, setData] = useState([]);
+  const [numOfPages, setNumOfPages] = useState(0);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -13,10 +14,35 @@ const Landing = () => {
 
       if (response.ok) {
         setData(json);
+        setNumOfPages(Math.ceil(json.length / 5));
       }
     };
     fetchData();
+    handlePage(1);
   }, []);
+
+  const handlePage = async (id) => {
+    const response = await fetch(
+      `http://157.245.61.32:7979/vehicles?_page=${id}&_limit=5`
+    );
+    const json = await response.json();
+
+    if (response.ok) {
+      setData(json);
+    }
+  };
+
+  const page = (id) => {
+    return (
+      <span
+        key={id}
+        className="rounded-full border-2 p-2 m-2 cursor-pointer"
+        onClick={() => handlePage(id)}
+      >
+        {id}
+      </span>
+    );
+  };
 
   const handleFilter = async (e) => {
     if (e.target.value !== '') {
@@ -66,6 +92,10 @@ const Landing = () => {
               <Vehicle vehicle={vehicle} isDetailsPage={false} />
             </div>
           ))}
+      </div>
+
+      <div className="flex flex-wrap justify-center">
+        {Array.from({ length: numOfPages }, (_, i) => page(i + 1))}
       </div>
     </>
   );
