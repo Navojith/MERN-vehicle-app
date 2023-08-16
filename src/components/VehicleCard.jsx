@@ -1,10 +1,13 @@
 import { useState, useEffect } from 'react';
+import { useBidContext } from '../hooks/useBidContext';
 import imgNotFound from '../assets/images/Image_not_available.png';
 
 const VehicleCard = () => {
   const [data, setData] = useState([]);
   const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
   const [minValueError, setMinValueError] = useState('');
+  const { bid, dispatch } = useBidContext();
+  const [bidAmount, setBidAmount] = useState(0);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -13,6 +16,7 @@ const VehicleCard = () => {
 
       if (response.ok) {
         setData(json);
+        dispatch({ type: 'SET_BID', payload: '' });
       }
     };
     fetchData();
@@ -38,13 +42,19 @@ const VehicleCard = () => {
     }
   };
 
+  const handleSubmit = (id, amount) => {
+    dispatch({ type: 'CREATE_BID', payload: { vid: id, bidAmount: amount } });
+  };
+
   const handleInputBid = (e, price) => {
     if (e.target.value > price) {
       setIsSubmitDisabled(false);
       setMinValueError('');
+      setBidAmount(e.target.value);
     } else if (e.target.value <= price) {
       setIsSubmitDisabled(true);
       setMinValueError('Bid must be greater than the current price');
+      setBidAmount(0);
     }
   };
 
@@ -111,7 +121,10 @@ const VehicleCard = () => {
                   Submit
                 </button>
               ) : (
-                <button className="mt-4 border-2 p-2 rounded-md hover:bg-indigo-600 ">
+                <button
+                  className="mt-4 border-2 p-2 rounded-md hover:bg-indigo-600 "
+                  onClick={() => handleSubmit(vehicle.id, bidAmount)}
+                >
                   Submit
                 </button>
               )}
