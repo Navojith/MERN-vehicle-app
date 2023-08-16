@@ -4,6 +4,7 @@ import Vehicle from '../components/Vehicle';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { findAllByDisplayValue } from '@testing-library/react';
 
 const Landing = () => {
   const [data, setData] = useState([]);
@@ -46,7 +47,7 @@ const Landing = () => {
   return (
     <>
       <ToastContainer />
-      <div className="">
+      <div className="mt-16">
         <label htmlFor="filter">Brand</label>
         <br />
         <select
@@ -63,12 +64,12 @@ const Landing = () => {
           <option value="BMW">BMW</option>
         </select>
       </div>
-      <button onClick={() => navigate('./current-bids')}>Show Bids</button>
+
       <div className="card flex flex-wrap mt-12 justify-center">
         {data &&
           data.map((vehicle) => (
             <div className="m-4" key={vehicle.id}>
-              <Vehicle vehicle={vehicle} />
+              <Vehicle vehicle={vehicle} isDetailsPage={false} />
             </div>
           ))}
       </div>
