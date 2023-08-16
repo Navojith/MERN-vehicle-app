@@ -18,7 +18,6 @@ const Landing = () => {
 
       if (response.ok) {
         setData(json);
-        dispatch({ type: 'SET_BID', payload: '' });
       }
     };
     fetchData();

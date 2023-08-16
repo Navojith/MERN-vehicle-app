@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import { useBidContext } from '../hooks/useBidContext';
 import { useEffect, useState } from 'react';
 
@@ -5,6 +6,7 @@ const BidList = () => {
   const { bid, dispatch } = useBidContext();
   const [bidItems, setBidItems] = useState([]);
   const [total, setTotal] = useState(0);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (bid !== null) {
@@ -19,6 +21,7 @@ const BidList = () => {
   }, [bid]);
   return (
     <div className="mt-12 ">
+      <button onClick={() => navigate(-1)}>Go Back</button>
       {bidItems &&
         bidItems.map((item) => (
           <div
