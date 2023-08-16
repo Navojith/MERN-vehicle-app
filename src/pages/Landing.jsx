@@ -6,6 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 const Landing = () => {
   const [data, setData] = useState([]);
   const [numOfPages, setNumOfPages] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -36,8 +37,12 @@ const Landing = () => {
     return (
       <span
         key={id}
-        className="rounded-full border-2 p-2 m-2 cursor-pointer"
-        onClick={() => handlePage(id)}
+        className={
+          currentPage === id
+            ? 'bg-pink-600 border-black text-black rounded-full border-4 p-2 m-2 cursor-pointer'
+            : 'rounded-full border-2 p-2 m-2 cursor-pointer'
+        }
+        onClick={() => handlePage(id) && setCurrentPage(id)}
       >
         {id}
       </span>
