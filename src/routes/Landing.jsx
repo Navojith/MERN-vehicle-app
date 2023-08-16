@@ -2,14 +2,13 @@ import { useState, useEffect } from 'react';
 import { useBidContext } from '../hooks/useBidContext';
 import Vehicle from '../components/Vehicle';
 import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Landing = () => {
   const [data, setData] = useState([]);
-  const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
-  const [minValueError, setMinValueError] = useState('');
-  const { dispatch } = useBidContext();
-  const [bidAmount, setBidAmount] = useState(0);
   const navigate = useNavigate();
+  const { dispatch } = useBidContext();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -44,27 +43,9 @@ const Landing = () => {
     }
   };
 
-  const handleSubmit = (vehicle, amount) => {
-    dispatch({
-      type: 'CREATE_BID',
-      payload: { vehicle: vehicle, bidAmount: amount },
-    });
-  };
-
-  const handleInputBid = (e, price) => {
-    if (e.target.value > price) {
-      setIsSubmitDisabled(false);
-      setMinValueError('');
-      setBidAmount(e.target.value);
-    } else if (e.target.value <= price) {
-      setIsSubmitDisabled(true);
-      setMinValueError('Bid must be greater than the current price');
-      setBidAmount(0);
-    }
-  };
-
   return (
     <>
+      <ToastContainer />
       <div className="">
         <label htmlFor="filter">Brand</label>
         <br />
@@ -86,16 +67,8 @@ const Landing = () => {
       <div className="card flex flex-wrap mt-12 justify-center">
         {data &&
           data.map((vehicle) => (
-            <div className="m-4">
-              <Vehicle
-                vehicle={vehicle}
-                key={vehicle.id}
-                minValueError={minValueError}
-                handleSubmit={handleSubmit}
-                isSubmitDisabled={isSubmitDisabled}
-                handleInputBid={handleInputBid}
-                bidAmount={bidAmount}
-              />
+            <div className="m-4" key={vehicle.id}>
+              <Vehicle vehicle={vehicle} />
             </div>
           ))}
       </div>

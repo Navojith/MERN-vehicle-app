@@ -1,14 +1,36 @@
 import imgNotFound from '../assets/images/Image_not_available.png';
 import { useNavigate } from 'react-router-dom';
-const Vehicle = ({
-  vehicle,
-  bidAmount,
-  handleInputBid,
-  isSubmitDisabled,
-  minValueError,
-  handleSubmit,
-}) => {
+import { ToastContainer, toast } from 'react-toastify';
+import { useBidContext } from '../hooks/useBidContext';
+import { useState } from 'react';
+import 'react-toastify/dist/ReactToastify.css';
+
+const Vehicle = ({ vehicle }) => {
   const navigate = useNavigate();
+  const { dispatch } = useBidContext();
+  const [minValueError, setMinValueError] = useState('');
+  const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
+  const [bidAmount, setBidAmount] = useState(0);
+
+  const handleInputBid = (e, price) => {
+    if (e.target.value > price) {
+      setIsSubmitDisabled(false);
+      setMinValueError('');
+      setBidAmount(e.target.value);
+    } else if (e.target.value <= price) {
+      setIsSubmitDisabled(true);
+      setMinValueError('Bid must be greater than the current price');
+      setBidAmount(0);
+    }
+  };
+
+  const handleSubmit = (vehicle, amount) => {
+    dispatch({
+      type: 'CREATE_BID',
+      payload: { vehicle: vehicle, bidAmount: amount },
+    });
+    toast('Bid Placed');
+  };
   return (
     <div
       key={vehicle.id}
