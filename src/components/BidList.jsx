@@ -3,7 +3,7 @@ import { useBidContext } from '../hooks/useBidContext';
 import { useEffect, useState } from 'react';
 
 const BidList = () => {
-  const { bid, dispatch } = useBidContext();
+  const { bid } = useBidContext();
   const [bidItems, setBidItems] = useState([]);
   const [total, setTotal] = useState(0);
   const navigate = useNavigate();

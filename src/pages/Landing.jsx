@@ -1,15 +1,10 @@
 import { useState, useEffect } from 'react';
-import { useBidContext } from '../hooks/useBidContext';
 import Vehicle from '../components/Vehicle';
-import { useNavigate } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { findAllByDisplayValue } from '@testing-library/react';
 
 const Landing = () => {
   const [data, setData] = useState([]);
-  const navigate = useNavigate();
-  const { dispatch } = useBidContext();
 
   useEffect(() => {
     const fetchData = async () => {
