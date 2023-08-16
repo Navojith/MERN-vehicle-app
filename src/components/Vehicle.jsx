@@ -41,6 +41,7 @@ const Vehicle = ({ vehicle, isDetailsPage }) => {
   }, []);
 
   const handleSubmit = (vehicle, amount) => {
+    console.log(vehicle, amount);
     dispatch({
       type: 'CREATE_BID',
       payload: { vehicle: vehicle, bidAmount: amount },

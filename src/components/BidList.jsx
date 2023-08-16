@@ -21,7 +21,9 @@ const BidList = () => {
   }, [bid]);
   return (
     <div className="mt-12 ">
-      <button onClick={() => navigate(-1)}>Go Back</button>
+      <button onClick={() => navigate(-1)} className="inline-block">
+        Go Back
+      </button>
       {bidItems &&
         bidItems.map((item) => (
           <div

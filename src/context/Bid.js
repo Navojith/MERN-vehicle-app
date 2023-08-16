@@ -11,9 +11,15 @@ export const BidReducer = (state, action) => {
       };
 
     case 'CREATE_BID':
-      return {
-        bid: [action.payload, ...state.bid],
-      };
+      if (state.bid) {
+        return {
+          bid: [action.payload, ...state.bid],
+        };
+      } else {
+        return {
+          bid: [action.payload],
+        };
+      }
 
     case 'DELETE_BID':
       return {
