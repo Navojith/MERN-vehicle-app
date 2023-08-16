@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useBidContext } from '../hooks/useBidContext';
-import imgNotFound from '../assets/images/Image_not_available.png';
+import Vehicle from '../components/Vehicle';
 import { useNavigate } from 'react-router-dom';
 
 const Landing = () => {
@@ -83,57 +83,19 @@ const Landing = () => {
         </select>
       </div>
       <button onClick={() => navigate('./current-bids')}>Show Bids</button>
-      <div className="card flex flex-wrap mt-12">
+      <div className="card flex flex-wrap mt-12 justify-center">
         {data &&
           data.map((vehicle) => (
-            <div
-              key={vehicle.id}
-              className="bg-gray-800 border-4 rounded-md md:w-[300px] mx-auto m-4 p-8"
-            >
-              <img
-                src={
-                  vehicle.details.image ? vehicle.details.image : imgNotFound
-                }
-                alt="vehicle"
-                width={800}
-                height={500}
+            <div className="m-4">
+              <Vehicle
+                vehicle={vehicle}
+                key={vehicle.id}
+                minValueError={minValueError}
+                handleSubmit={handleSubmit}
+                isSubmitDisabled={isSubmitDisabled}
+                handleInputBid={handleInputBid}
+                bidAmount={bidAmount}
               />
-              <p className="text-xl mt-2">
-                {vehicle.details.brand + ' '}
-                {vehicle.name}
-              </p>
-              <p>{vehicle.details.description}</p>
-              <p>
-                {vehicle.details.price} {' ' + vehicle.details.currency}
-              </p>
-              <input
-                type="number"
-                id="bid"
-                className="mt-4 px-2 py-1 rounded-md w-[75%] mr-2 text-black"
-                placeholder="Enter your bid"
-                onChange={(e, price) =>
-                  handleInputBid(e, vehicle.details.price)
-                }
-                min={vehicle.details.price + 1}
-              />
-              <label htmlFor="bid"></label>LKR
-              <br />
-              {isSubmitDisabled ? (
-                <button
-                  className="mt-4 border-2 p-2 rounded-md text-gray-500 border-gray-500 "
-                  disabled
-                >
-                  Submit
-                </button>
-              ) : (
-                <button
-                  className="mt-4 border-2 p-2 rounded-md hover:bg-indigo-600 "
-                  onClick={() => handleSubmit(vehicle, bidAmount)}
-                >
-                  Submit
-                </button>
-              )}
-              <p className="text-pink-600 border-1">{minValueError}</p>
             </div>
           ))}
       </div>
