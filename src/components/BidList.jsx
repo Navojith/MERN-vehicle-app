@@ -7,8 +7,16 @@ const BidList = () => {
   const [total, setTotal] = useState(0);
 
   useEffect(() => {
+    if (bid !== null) {
+      let tot = 0;
+      for (let i = 0; i < bid.length; i++) {
+        tot += parseFloat(bid[i].bidAmount);
+      }
+      setTotal(tot);
+    }
+
     setBidItems(bid);
-  }, []);
+  }, [bid]);
   return (
     <>
       {bidItems &&
@@ -22,7 +30,6 @@ const BidList = () => {
                 ' - ' +
                 item.vehicle.details.manufactureYear}
             </h2>
-
             <p></p>
           </div>
         ))}
