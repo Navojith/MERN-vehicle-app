@@ -18,12 +18,12 @@ const BidList = () => {
     setBidItems(bid);
   }, [bid]);
   return (
-    <>
+    <div className="mt-12 ">
       {bidItems &&
         bidItems.map((item) => (
           <div
             key={item.vehicle.id}
-            className="text-white m-4 border-2 p-4 inline-block"
+            className="inline-block text-white m-4 border-2 p-4"
           >
             <img src={item.vehicle.details.image} alt="vehicle" width={300} />
             <h2>
@@ -36,8 +36,10 @@ const BidList = () => {
             <p>Bid amount : {item.bidAmount} lkr</p>
           </div>
         ))}
-      <h1 className="text-2xl text-right mt-4">Total : {total} lkr</h1>
-    </>
+      <hr />
+      <h1 className="text-2xl text-right">Total : {total} lkr</h1>
+      <hr />
+    </div>
   );
 };
 

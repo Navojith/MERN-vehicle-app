@@ -15,6 +15,7 @@ function App() {
           >
             Show Bids
           </Link>
+          <br />
           <Routes>
             <Route path="/" element={<Landing />} />
             <Route path="/current-bids" element={<BidListPage />} />
