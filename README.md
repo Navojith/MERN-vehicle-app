@@ -3,7 +3,9 @@
 
 # How To Run
 
-Just run these two commands 
+Clone the project and open the project directory with terminal.
+
+Then run these two commands 
 
 `npm i` <br />
 `npm start `
