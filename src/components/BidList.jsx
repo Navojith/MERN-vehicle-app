@@ -22,7 +22,10 @@ const BidList = () => {
   }, [bid]);
   return (
     <div className="mt-12 ">
-      <button onClick={() => navigate(-1)} className="inline-block">
+      <button
+        onClick={() => navigate(-1)}
+        className="inline-block px-2 border-2 rounded-xl"
+      >
         Go Back
       </button>
       <div>

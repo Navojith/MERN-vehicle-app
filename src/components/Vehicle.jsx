@@ -108,7 +108,7 @@ const Vehicle = ({ vehicle, isDetailsPage }) => {
             <div className="mt-12">
               <button
                 onClick={() => navigate(-1)}
-                className="border-2 px-2 inline-block"
+                className="border-2 px-2 inline-block rounded-xl"
               >
                 Go Back
               </button>
