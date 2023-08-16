@@ -65,7 +65,7 @@ const Landing = () => {
 
   return (
     <>
-      <div>
+      <div className="">
         <label htmlFor="filter">Brand</label>
         <br />
         <select

@@ -1,5 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import noImage from '../assets/images/Image_not_available.png';
 
 const VehicleDetails = () => {
   const { id } = useParams();
@@ -19,11 +20,32 @@ const VehicleDetails = () => {
   }, []);
 
   return (
-    <div>
+    <div className="flex flex-wrap p-4 m-4">
       {vehicle && (
         <>
-          <div>{vehicle.name}</div>
-          <img src={vehicle.details.image} alt="vehicle"></img>
+          <img
+            src={vehicle.details.image ? vehicle.details.image : noImage}
+            alt="vehicle"
+            className="w-full md:w-[60vw]"
+          />
+          <div className="ml-4">
+            <p className="text-xl">
+              {vehicle.details.brand +
+                ' ' +
+                vehicle.name +
+                ' ' +
+                vehicle.details.manufactureYear}
+            </p>
+            <p className="mt-4">Description</p>
+            <p className="mt-2">{vehicle.details.description}</p>
+            <div className="flex align-middle mt-4">
+              Color:
+              <span
+                style={{ backgroundColor: vehicle.details.color }}
+                className={'rounded-full w-6 h-6 inline-block ml-2 border-2'}
+              ></span>
+            </div>
+          </div>
         </>
       )}
     </div>
